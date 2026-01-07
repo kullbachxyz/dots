@@ -5,6 +5,9 @@
 #	If given a file, set that as the new wallpaper.
 #	If given a directory, choose random file in it.
 
+# Clear previous notifications
+dunstctl close
+
 # Location of link to wallpaper link.
 bgloc="${XDG_DATA_HOME:-$HOME/.local/share}/bg"
 
