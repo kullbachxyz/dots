@@ -1,0 +1,13 @@
+return{
+    {
+    'martineausimon/nvim-xresources',
+    lazy = false,
+    priority = 1000,
+    config = function()
+	require('nvim-xresources').setup({
+	    xresources_path = os.getenv("HOME") .. '/.config/xresources',
+	})
+        vim.cmd('colorscheme xresources')
+    end
+    }
+}
