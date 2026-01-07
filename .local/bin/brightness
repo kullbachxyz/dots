@@ -28,5 +28,5 @@ fi
 CURRENT_BRIGHTNESS=$(brightnessctl | awk -F'[()]' '{print $2}' | tr -d '\n' | awk '{gsub(/^[ \t]+|[ \t]+$/, ""); print $1}')
 
 # Display the current brightness as a notification
-notify-send "Brightness" "$CURRENT_BRIGHTNESS"
-
+# notify-send "Brightness" "$CURRENT_BRIGHTNESS"
+dunstify --hints=int:value:"$CURRENT_BRIGHTNESS" "Brightness: $(printf "%.0f" "$CURRENT_BRIGHTNESS")%"

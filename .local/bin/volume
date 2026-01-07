@@ -36,5 +36,5 @@ CURRENT_VOLUME=$(wpctl get-volume @DEFAULT_AUDIO_SINK@ | awk '{print $2}')
 CURRENT_VOLUME_PERCENT=$(echo "$CURRENT_VOLUME * 100" | bc -l)
 
 # Display the current volume as a notification (without decimals)
-notify-send "Volume" "$(printf "%.0f" $CURRENT_VOLUME_PERCENT)%"
-
+# notify-send "Volume" "$(printf "%.0f" $CURRENT_VOLUME_PERCENT)%"
+dunstify --hints=int:value:"$CURRENT_VOLUME_PERCENT" "Volume: $(printf "%.0f" "$CURRENT_VOLUME_PERCENT")%"

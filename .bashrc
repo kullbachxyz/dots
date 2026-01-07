@@ -21,3 +21,5 @@ alias cdwm='nvim ~/.local/src/dwm/config.h'
 alias mdwm='cd ~/.local/src/dwm/ && sudo make clean install && cd -'
 
 PS1='[\u@\h \W]\$ '
+
+source ~/.config/shell/pass
