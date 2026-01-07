@@ -1,0 +1,67 @@
+#!/usr/bin/env bash
+
+prefix=${PASSWORD_STORE_DIR-~/.password-store}
+
+# Enable recursive globbing to use **
+shopt -s globstar
+
+# Get all password files recursively
+password_files=( "$prefix"/**/*.gpg )
+
+# Debug: Print out the password files
+echo "Password files:"
+printf '%s\n' "${password_files[@]}"
+
+# If there are no files, exit
+[[ ${#password_files[@]} -eq 0 ]] && echo "No password files found!" && exit
+
+# Set dmenu appearance using DWM colors
+dmenu_cmd="dmenu -i -fn Hack-10.5 -nb #2f343f -nf #e1e3e7 -sb #404552 -sf #fafafa"
+
+# Strip the prefix part of the file paths for pass
+password_files=("${password_files[@]#$prefix/}")
+password_files=("${password_files[@]%.gpg}")     # Remove the .gpg extension
+
+# Join the filenames with spaces, properly escaping them
+password=$(printf '%s\n' "${password_files[@]}" | $dmenu_cmd "$@")
+
+# Exit if no password selected
+[[ -n $password ]] || exit
+
+# Debug: Print selected password (for verification)
+# echo "Selected password: $password"
+
+# Check if it's an OTP entry by checking the prefix
+if [[ $password == otp-* ]]; then
+    # Use pass otp to get the OTP code directly
+    otp_code=$(pass otp "$password")
+
+    # If we couldn't get the OTP code, show an error
+    if [[ -z $otp_code ]]; then
+        echo "Error generating OTP code!"
+        exit 1
+    fi
+
+    # Copy OTP code to clipboard
+    echo "$otp_code" | xclip -selection clipboard > /dev/null 2>&1
+
+    # Confirm that it was copied
+    notify-send "Pass" "OTP code copied to clipboard."
+
+else
+    # If not an OTP entry, handle the regular password
+    pass_output=$(pass show "$password" 2>&1)
+
+    # Check if there was an error with pass show
+    if [[ $? -ne 0 ]]; then
+        echo "Error retrieving password: $pass_output"
+        exit 1
+    fi
+
+    # Copy the password to clipboard using xclip
+    echo "$pass_output" | xclip -selection clipboard > /dev/null 2>&1
+
+    # Confirm that it was copied
+    notify-send "Pass" "Password copied to clipboard."
+fi
+
