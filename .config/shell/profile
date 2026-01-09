@@ -1,0 +1,15 @@
+#!/bin/sh
+# Profile file - stores envirement variables
+
+# Add all directories in `~/.local/bin` to $PATH
+export PATH="$PATH:$(find ~/.local/bin -type d | paste -sd ':' -)"
+
+# Default programs:
+export EDITOR="nvim"
+export TERMINAL="st"
+export TERMINAL_PROG="st"
+export BROWSER="librewolf"
+
+# Switch escape and caps if tty and no passwd required:
+sudo -n loadkeys "~/.local/share/remaps.kmap" 2>/dev/null
+setxkbmap -option caps:escape
