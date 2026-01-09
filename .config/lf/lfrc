@@ -1,0 +1,9 @@
+# Basic settings
+set icons
+
+# Bindings
+
+map H cd ~
+map gw cd ~/.local/share/walls
+
+map b $setbg $f
