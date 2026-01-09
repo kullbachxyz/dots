@@ -32,7 +32,7 @@ password=$(printf '%s\n' "${password_files[@]}" | $dmenu_cmd "$@")
 # echo "Selected password: $password"
 
 # Check if it's an OTP entry by checking the prefix
-if [[ $password == otp-* ]]; then
+if [[ $password == *otp* ]]; then
     # Use pass otp to get the OTP code directly
     otp_code=$(pass otp "$password")
 
