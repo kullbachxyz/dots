@@ -6,4 +6,4 @@ set icons
 map H cd ~
 map gw cd ~/.local/share/walls
 
-map b $setbg $f
+map bg $setbg $f
