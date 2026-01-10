@@ -1,5 +1,7 @@
 # Basic settings
 set icons
+set cleaner '~/.config/lf/cleaner'
+set previewer '~/.config/lf/scope'
 
 # Bindings
 map H cd ~
