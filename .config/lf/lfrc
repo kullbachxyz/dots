@@ -2,8 +2,11 @@
 set icons
 
 # Bindings
-
 map H cd ~
+map D delete
+map gg top
+map G bottom
+
 map gw cd ~/.local/share/walls
 
 map bg $setbg $f
