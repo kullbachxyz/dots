@@ -12,6 +12,8 @@ pipewire &
 pipewire-pulse &
 wireplumber &
 dwmblocks &
+unclutter &
+dunst &
 
 xwallpaper --zoom ~/.local/share/bg &
 

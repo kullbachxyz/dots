@@ -12,7 +12,8 @@ font = Hack 10
 format = "<b>%s</b>\n%b"
 background = "#222222"
 foreground = "#bbbbbb"
-frame_color = "#005577"
+highlight = "#005577"
+frame_color = "#444444"
 
 [urgency_low]
 timeout = 3
