@@ -16,7 +16,8 @@ printf '%s\n' "${password_files[@]}"
 [[ ${#password_files[@]} -eq 0 ]] && echo "No password files found!" && exit
 
 # Set dmenu appearance using DWM colors
-dmenu_cmd="dmenu -i -fn Hack-10.5 -nb #2f343f -nf #e1e3e7 -sb #404552 -sf #fafafa"
+#dmenu_cmd="dmenu -i -fn Hack-10.5 -nb #2f343f -nf #e1e3e7 -sb #404552 -sf #fafafa"
+dmenu_cmd="dmenu -i -fn Hack-10.5"
 
 # Strip the prefix part of the file paths for pass
 password_files=("${password_files[@]#$prefix/}")

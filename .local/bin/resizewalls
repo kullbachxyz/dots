@@ -1,0 +1,27 @@
+#!/bin/bash
+
+# Define the base directory where your images are located
+base_dir="$HOME/.local/share/walls"
+
+# Loop through all image files recursively in the base directory
+find "$base_dir" -type f \( -iname "*.png" -o -iname "*.jpeg" -o -iname "*.gif" -o -iname "*.bmp" -o -iname "*.tiff" -o -iname "*.jpg" \) | while read img; do
+    # Get the image dimensions
+    dimensions=$(identify -format "%wx%h" "$img")
+    width=$(echo $dimensions | cut -d 'x' -f 1)
+    height=$(echo $dimensions | cut -d 'x' -f 2)
+
+    # Resize based on the dimensions
+    if [ "$height" -gt 1080 ]; then
+        # If height is larger than 1080px, resize based on height
+        magick "$img" -resize x1080\> "$img"
+    elif [ "$width" -gt 1920 ]; then
+        # If width is larger than 1920px, resize based on width
+        magick "$img" -resize 1920\> "$img"
+    else
+        # If both width and height are smaller, no resize is needed
+        magick "$img" "$img"
+    fi
+
+    echo "Resized: $img"
+done
+
