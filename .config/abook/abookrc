@@ -1,0 +1,15 @@
+# Declare a few custom fields
+field pager = Pager
+field address_lines = Address, list
+field birthday = Birthday, date
+
+set preserve_fields=all
+set autosave=true
+
+# Configure Views
+view CONTACT = name,email
+view ADDRESS = address,address2,city,state,zip,country
+view PHONE = phone,workphone,fax,mobile
+view OTHER = nick,url,notes,birthday
+
+set index_format="{name:25} | {mobile:-17|phone|workphone} | {email:20}"
