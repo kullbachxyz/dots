@@ -1,15 +1,26 @@
-# Declare a few custom fields
+# Custom fields
 field pager = Pager
 field address_lines = Address, list
 field birthday = Birthday, date
 
-set preserve_fields=all
-set autosave=true
-
-# Configure Views
+# Views
 view CONTACT = name,email
 view ADDRESS = address,address2,city,state,zip,country
 view PHONE = phone,workphone,fax,mobile
 view OTHER = nick,url,notes,birthday
 
+# Variables
+set autosave=true
+set show_all_emails=true
 set index_format="{name:25} | {mobile:-17|phone|workphone} | {email:20}"
+set mutt_command=neomutt
+set mutt_return_all_emails=true
+set address_style=eu
+set preserve_fields=all
+
+# colors
+set use_colors = true
+set color_header_fg = red
+set color_header_bg = default
+set color_list_header_fg = blue
+set color_list_header_bg = default
