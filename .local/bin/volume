@@ -2,7 +2,7 @@
 
 # Check if an argument is provided
 if [ $# -ne 1 ]; then
-  echo "Usage: $0 up|down"
+  echo "Usage: $0 up|down|mute|unmute|toggle"
   exit 1
 fi
 
@@ -24,6 +24,12 @@ if [ "$1" == "up" ]; then
 elif [ "$1" == "down" ]; then
   # Decrease volume by 10%
   wpctl set-volume @DEFAULT_AUDIO_SINK@ 10%- &>/dev/null
+elif [ "$1" == "toggle" ]; then
+  wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle &>/dev/null
+elif [ "$1" == "mute" ]; then
+  wpctl set-mute @DEFAULT_AUDIO_SINK@ 1 &>/dev/null
+elif [ "$1" == "unmute" ]; then
+  wpctl set-mute @DEFAULT_AUDIO_SINK@ 0 &>/dev/null
 else
   echo "Invalid argument. Use 'up' or 'down'."
   exit 1
@@ -35,6 +41,13 @@ CURRENT_VOLUME=$(wpctl get-volume @DEFAULT_AUDIO_SINK@ | awk '{print $2}')
 # Convert the volume to a percentage and display it as a notification
 CURRENT_VOLUME_PERCENT=$(echo "$CURRENT_VOLUME * 100" | bc -l)
 
+# Mute state
+VOLUME_INFO=$(wpctl get-volume @DEFAULT_AUDIO_SINK@)
+IS_MUTED=$(echo "$VOLUME_INFO" | grep -q MUTED && echo "yes" || echo "no")
+
 # Display the current volume as a notification (without decimals)
-# notify-send "Volume" "$(printf "%.0f" $CURRENT_VOLUME_PERCENT)%"
-dunstify --hints=int:value:"$CURRENT_VOLUME_PERCENT" "Volume: $(printf "%.0f" "$CURRENT_VOLUME_PERCENT")%"
+if [ "$IS_MUTED" == "yes" ]; then
+   dunstify --hints=int:value:0 "Volume: Muted 🔇"
+else
+  dunstify --hints=int:value:"$CURRENT_VOLUME_PERCENT" "Volume: $(printf "%.0f" "$CURRENT_VOLUME_PERCENT")%"
+fi
