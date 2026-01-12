@@ -7,15 +7,15 @@ field birthday = Birthday, date
 set sort_field=name_last
 
 # Views
-view CONTACT = name,name_last,name_first,email,phone
+view CONTACT = name,name_last,name_first,email,mobile
 view ADDRESS = address,address2,city,state,zip,country
-view PHONE = phone,workphone,fax,mobile
+view PHONE = mobile,phone,workphone,fax
 view OTHER = nick,url,notes,birthday
 
 # Variables
 set autosave=true
 set show_all_emails=true
-set index_format="{name:25} | {mobile:-17|phone|workphone} | {email:25}"
+set index_format="{name:20} | {mobile:-17|phone|workphone} | {email:25}"
 set mutt_command=neomutt
 set mutt_return_all_emails=true
 set address_style=eu
