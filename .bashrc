@@ -5,6 +5,7 @@
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
 
+
 # bash history
 export HISTSIZE=10000
 export HISTFILESIZE=10000
@@ -14,3 +15,6 @@ PS1='[\u@\h \W]\$ '
 
 # source aliases
 source ~/.config/shell/aliasrc
+
+# Rust
+. "$HOME/.cargo/env"

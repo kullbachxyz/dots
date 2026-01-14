@@ -10,5 +10,6 @@ map gg top
 map G bottom
 
 map gw cd ~/.local/share/walls
+map gm cd /mnt
 
 map bg $setbg $f

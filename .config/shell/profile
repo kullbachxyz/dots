@@ -4,6 +4,8 @@
 # Add all directories in `~/.local/bin` to $PATH
 export PATH="$PATH:$(find ~/.local/bin -type d | paste -sd ':' -)"
 
+export SUDO_ASKPASS="$HOME/.local/bin/dmenupass"
+
 # Default programs:
 export EDITOR="nvim"
 export TERMINAL="st"

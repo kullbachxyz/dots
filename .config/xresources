@@ -46,6 +46,6 @@
 dwm.normbgcolor: #222222
 dwm.normbordercolor: #444444
 dwm.normfgcolor: #bbbbbb
-dwm.selbordercolor: #3182bd
-dwm.selbgcolor: #3182bd
+dwm.selbordercolor: #005577
+dwm.selbgcolor: #005577
 dwm.selfgcolor: #eeeeee
