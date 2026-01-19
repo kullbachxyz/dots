@@ -5,41 +5,41 @@
 *.font: Hack:size=11.5
 
 ! special
-*.foreground:   #b7b8b9
+*.foreground:   #b0b3b4
 *.background:   #222222
-*.cursorColor:  #b7b8b9
+*.cursorColor:  #b0b3b4
 
 ! black
-*.color0:       #0c0d0e
-*.color8:       #737475
+*.color0:       #101112
+*.color8:       #6f7273
 
 ! red
-*.color1:       #e31a1c
-*.color9:       #e31a1c
+*.color1:       #a02a2a
+*.color9:       #a02a2a
 
 ! green
-*.color2:       #31a354
-*.color10:      #31a354
+*.color2:       #2f6f4e
+*.color10:      #2f6f4e
 
 ! yellow
-*.color3:       #dca060
-*.color11:      #dca060
+*.color3:       #8f6b3e
+*.color11:      #8f6b3e
 
 ! blue
-*.color4:       #3182bd
-*.color12:      #3182bd
+*.color4:       #005577
+*.color12:      #005577
 
 ! magenta
-*.color5:       #756bb1
-*.color13:      #756bb1
+*.color5:       #5a4f86
+*.color13:      #5a4f86
 
 ! cyan
-*.color6:       #80b1d3
-*.color14:      #80b1d3
+*.color6:       #4f7f8f
+*.color14:      #4f7f8f
 
 ! white
-*.color7:       #b7b8b9
-*.color15:      #fcfdfe
+*.color7:       #b0b3b4
+*.color15:      #f4f6f7
 
 
 ! dwm colors

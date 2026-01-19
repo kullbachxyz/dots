@@ -13,56 +13,42 @@ echo "Password files:"
 printf '%s\n' "${password_files[@]}"
 
 # If there are no files, exit
-[[ ${#password_files[@]} -eq 0 ]] && echo "No password files found!" && exit
+[[ ${#password_files[@]} -eq 0 ]] && echo "No password files found!" && exit 1
 
-# Set dmenu appearance using DWM colors
-#dmenu_cmd="dmenu -i -fn Hack-10.5 -nb #2f343f -nf #e1e3e7 -sb #404552 -sf #fafafa"
+# dmenu command
 dmenu_cmd="dmenu -i -fn Hack-10.5"
 
-# Strip the prefix part of the file paths for pass
+# Strip prefix and extension for pass
 password_files=("${password_files[@]#$prefix/}")
-password_files=("${password_files[@]%.gpg}")     # Remove the .gpg extension
+password_files=("${password_files[@]%.gpg}")
 
-# Join the filenames with spaces, properly escaping them
+# Select password via dmenu
 password=$(printf '%s\n' "${password_files[@]}" | $dmenu_cmd "$@")
 
 # Exit if no password selected
-[[ -n $password ]] || exit
+[[ -n $password ]] || exit 0
 
-# Debug: Print selected password (for verification)
-# echo "Selected password: $password"
-
-# Check if it's an OTP entry by checking the prefix
+# OTP handling
 if [[ $password == *otp* ]]; then
-    # Use pass otp to get the OTP code directly
     otp_code=$(pass otp "$password")
 
-    # If we couldn't get the OTP code, show an error
     if [[ -z $otp_code ]]; then
         echo "Error generating OTP code!"
         exit 1
     fi
 
-    # Copy OTP code to clipboard
-    echo "$otp_code" | xclip -selection clipboard > /dev/null 2>&1
-
-    # Confirm that it was copied
+    printf '%s' "$otp_code" | xclip -selection clipboard >/dev/null 2>&1
     notify-send "Pass" "OTP code copied to clipboard."
-
 else
-    # If not an OTP entry, handle the regular password
-    pass_output=$(pass show "$password" 2>&1)
-
-    # Check if there was an error with pass show
-    if [[ $? -ne 0 ]]; then
-        echo "Error retrieving password: $pass_output"
+    # Get password (first line only)
+    if ! pass_output=$(pass show "$password"); then
+        echo "Error retrieving password!"
         exit 1
     fi
 
-    # Copy the password to clipboard using xclip
-    echo "$pass_output" | xclip -selection clipboard > /dev/null 2>&1
+    password_line=$(printf '%s\n' "$pass_output" | head -n 1)
 
-    # Confirm that it was copied
+    printf '%s' "$password_line" | xclip -selection clipboard >/dev/null 2>&1
     notify-send "Pass" "Password copied to clipboard."
 fi
 
