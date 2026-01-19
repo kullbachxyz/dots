@@ -14,6 +14,7 @@ wireplumber &
 dwmblocks &
 unclutter &
 dunst &
+mpd &
 
 xwallpaper --zoom ~/.local/share/bg &
 
